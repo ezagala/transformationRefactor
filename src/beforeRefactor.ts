@@ -11,19 +11,19 @@ interface Datum {
   usageHistory: Record<"date" | "usage", string | number>[];
 }
 
-console.log(
-  transform({
-    recordList: records, 
-    selectedDate: "2021-08-15"
-  })
-)
-
 /* 
 This function takes a list of database records and a date as input. It returns a list of maps. 
 The shape of the maps are described by the Datum interface. 
 
 The returned array is used as the input for a chart located elsewhere in the project. 
 */
+
+console.log(
+  transform({
+    recordList: records, 
+    selectedDate: "2021-08-15"
+  })
+)
 
 function transform({selectedDate, recordList}: {
   selectedDate: string,
@@ -112,62 +112,3 @@ function transform({selectedDate, recordList}: {
         }) as Datum[]
     );
 }
-
-/* 
-Transform exists as a private method on this abstract class
-
-class Page<Data> {
-  // Returns a reference to itself so as to be chainable
-  async fetchData(): Promise<Page<Data>> {
-    throw new Error("Method not implemented.");
-  }
-
-  hydratePage(): ReactElement {
-    throw new Error("Method not implemented.");
-  }
-
-  // Returns a reference to itself so as to be chainable
-  shapeData?(): Page<Data> {
-    throw new Error("Method not implemented.");
-  }
-}
-*/
-
-/*
-function combineRecords(recordList: DbRecord[]): Record<string, Datum> {
-  const irrelevantKeys = ['PK', 'SK', 'updatedAt', 'entity', 'key']
-  return recordList.reduce((combinedRecords, record) => {
-    Object.keys(record)
-      .filter(key => irrelevantKeys.every(irrelevantKey => irrelevantKey !== key))
-      .forEach(key => {
-        if (!Object.prototype.hasOwnProperty.call(combinedRecords, key)) {
-          combinedRecords = {
-            ...combinedRecords,
-            [key]: {
-              technology: key,
-              amountUsed: Number(record[key]),
-              usageHistory: [{
-                usage: record[key],
-                date: record['date']
-              }]
-            } as Datum
-          }
-        }
-        combinedRecords = {
-          ...combinedRecords,
-          [key]: {
-            amountUsed: Number(combinedRecords[key]?.amountUsed) + Number(record[key]),
-            usageHistory: [
-              ...combinedRecords[key]['usageHistory'],
-              {
-                usage: Number(record[key]),
-                date: record.date
-              }
-            ]
-          }
-        }
-      })
-    return combinedRecords
-  }, {} as Record<string, Datum>)
-}
-*/
